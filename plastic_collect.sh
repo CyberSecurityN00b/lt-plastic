@@ -28,6 +28,6 @@ for path in ${PATH//:/ };do find $path -type f -executable -print0 2>/dev/null |
 find /etc -type f -print0 2>/dev/null | xargs -0 cksum 2>/dev/null | sed 's/^/\[conf\]\: /' >> $PLASTIC_FILE
 
 ## DIRWALK ####################################################################
-find / -maxdepth 4 -mindepth 4 -path /sys -prune -o -path /proc -prune 2>/dev/null | sed 's/^/\[dirwalk\]\: /' >> $PLASTIC_FILE
+find / -xdev -type d -maxdepth 4 2>/dev/null | sed 's/^/\[dirwalk\]\: /' >> $PLASTIC_FILE
 
 echo "Done."
