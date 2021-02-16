@@ -36,7 +36,7 @@ for filename in /etc/init.d/*; do cksum $filename 2>/dev/null >> $PLASTIC_FILE;d
 for filename in /etc/cron.d/*; do cksum $filename 2>/dev/null | sed 's/^/\[cron\]\: /' >> $PLASTIC_FILE;done
 
 ## EXECUTABLE #################################################################
-for path in ${PATH//:/ };do find $path -type f -executable -print0 2>/dev/null | xargs -0 cksum 2>/dev/null | sed 's/^/\[exec\]\: /' >> $PLASTIC_FILE;done
+find / -type f -executable -print0 2>/dev/null | xargs -0 cksum 2>/dev/null | sed 's/^/\[exec\]\: /' >> $PLASTIC_FILE
 
 ## CONFIG #####################################################################
 find /etc -type f -print0 2>/dev/null | xargs -0 cksum 2>/dev/null | sed 's/^/\[conf\]\: /' >> $PLASTIC_FILE
