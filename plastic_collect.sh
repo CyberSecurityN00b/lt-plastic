@@ -7,6 +7,20 @@ echo "Collecting to $PLASTIC_FILE..."
 ## USERS ######################################################################
 cat /etc/passwd | sed 's/^/\[\/etc\/passwd\]\: /' >> $PLASTIC_FILE
 
+## GROUPS #####################################################################
+cat /etc/group | sed 's/^/\[\/etc\/group\]\: /' >> $PLASTIC_FILE
+
+## BASH FILES #################################################################
+find /home -name ".*bash*" -type f -print0 2>/dev/null | xargs -0 cksum 2>/dev/null | sed 's/^/\[bash file\]\: /' >> $PLASTIC_FILE
+find /root -name ".*bash*" -type f -print0 2>/dev/null | xargs -0 cksum 2>/dev/null | sed 's/^/\[bash file\]\: /' >> $PLASTIC_FILE
+
+## PROFILE FILES ##############################################################
+find /home -name ".*profile*" -type f -print0 2>/dev/null | xargs -0 cksum 2>/dev/null | sed 's/^/\[profile file\]\: /' >> $PLASTIC_FILE
+find /root -name ".*profile*" -type f -print0 2>/dev/null | xargs -0 cksum 2>/dev/null | sed 's/^/\[profile file\]\: /' >> $PLASTIC_FILE
+
+## MOUNT ######################################################################
+mount 2>/dev/null | sed 's/^/\[mount\]\: /' >> $PLASTIC_FILE
+
 ## PROCESSES ##################################################################
 ps -eo pid -o args | sed 's/^/\[process\]\: /' >> $PLASTIC_FILE
 
